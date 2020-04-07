@@ -4,7 +4,7 @@ var numCols = 3
 
 const addRow = () => {
     const row = document.createElement('tr')
-    for(i = 0; i < numCols; i++){
+    for(let i = 0; i < numCols; i++){
         console.log('td created')
         const col = document.createElement('td')
         const text = document.createTextNode('Pika')
@@ -14,4 +14,14 @@ const addRow = () => {
     table.appendChild(row)
 }
 
-
+const addCol = () => {
+    let rows = document.getElementsByTagName('tr')
+    for(row of rows){
+        for(let i = 0; i < numCols; i++){
+            const col = document.createElement('td')
+            const text = document.createTextNode('Pika')
+            col.appendChild(text)
+            row.appendChild(col)
+        }
+    }
+}
