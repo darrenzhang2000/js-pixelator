@@ -32,3 +32,14 @@ const removeRow = () => {
         rows[0].remove()
     }
 }
+
+const removeCol = () => {
+    if (numCols > 1) {
+        numCols--
+        let cols = document.getElementsByTagName("td")
+        let rows = document.getElementsByTagName("tr")
+        for (row of rows) {
+            row.removeChild(row.lastChild)
+        }
+    }
+}
