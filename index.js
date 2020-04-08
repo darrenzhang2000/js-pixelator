@@ -60,3 +60,10 @@ const removeCol = () => {
         }
     }
 }
+
+const fillAllCells = () => {
+    tds = document.getElementsByTagName("td")
+    for(td of tds){
+        td.style.color = pickedColor
+    }
+}
