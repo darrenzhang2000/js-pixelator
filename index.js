@@ -1,15 +1,26 @@
 const table = document.getElementsByTagName("table")[0]
 var numRows = 1
 var numCols = 1
+var mousedown = 0
 var colorDropdown = document.getElementById("colors")
 var pickedColor = colorDropdown.options[colorDropdown.selectedIndex].value
-
-colorDropdown.addEventListener('change', () => {
-    var newColor = colorDropdown.options[colorDropdown.selectedIndex].value
-    pickedColor = newColor
-    console.log(newColor)
+var firsttd = document.getElementById("firsttd")
+firsttd.addEventListener("click", () => {
+    firsttd.style.color = pickedColor
 })
 
+document.body.onmousedown = function () {
+    mousedown = 1
+}
+
+document.body.onmouseup = function () {
+    mousedown = 0
+}
+
+colorDropdown.addEventListener("change", () => {
+    var newColor = colorDropdown.options[colorDropdown.selectedIndex].value
+    pickedColor = newColor
+})
 
 const addRow = () => {
     numRows++
@@ -18,7 +29,6 @@ const addRow = () => {
         const col = document.createElement("td")
         col.addEventListener("click", () => {
             col.style.color = pickedColor
-            console.log("clicked", pickedColor)
         })
         const text = document.createTextNode("Pika")
         col.appendChild(text)
@@ -34,8 +44,6 @@ const addCol = () => {
         const col = document.createElement("td")
         col.addEventListener("click", () => {
             col.style.color = pickedColor
-            console.log("clicked", pickedColor)
-
         })
         const text = document.createTextNode("Pika")
         col.appendChild(text)
@@ -63,7 +71,23 @@ const removeCol = () => {
 
 const fillAllCells = () => {
     tds = document.getElementsByTagName("td")
-    for(td of tds){
+    for (td of tds) {
         td.style.color = pickedColor
     }
 }
+
+const fillOnHover = () => {}
+
+function pauseEvent(e) {
+    if (e.stopPropagation) e.stopPropagation()
+    if (e.preventDefault) e.preventDefault()
+    e.cancelBubble = true
+    e.returnValue = false
+    return false
+}
+
+table.addEventListener("mouseover", (e) => {
+    pauseEvent(e)
+    if (mousedown) e.target.style.color = pickedColor
+})
+
